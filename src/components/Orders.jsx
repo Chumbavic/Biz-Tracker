@@ -10,4 +10,6 @@ const Orders = () => {
     const[loading, setLoading] = useState("");
 
     
-}
+};
+
+export default Orders;
