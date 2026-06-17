@@ -1,0 +1,1 @@
+// Manages catalog. Makes image sharing possible. Dropdown to see your own available products. 
