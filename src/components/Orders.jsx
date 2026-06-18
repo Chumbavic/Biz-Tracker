@@ -9,6 +9,30 @@ const Orders = () => {
     const[orders, setOrders] = useState("");
     const[loading, setLoading] = useState("");
 
+    return(
+        <div className='row'>
+            {/* Pending Orders */}
+            <div className='col-md-4'>
+                <h4>Pending Orders</h4>
+                
+
+            </div>
+
+            {/* Completed Orders */}
+            <div className='col-md-4'>
+                <h4>Completed Orders</h4>
+
+            </div>
+
+            {/* All Recent Orders */}
+            <div className='col-md-4'>
+                <h4>Recent Orders</h4>
+
+            </div>
+
+        </div>
+    );
+
     
 };
 
