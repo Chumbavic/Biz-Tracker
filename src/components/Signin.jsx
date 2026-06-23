@@ -34,6 +34,8 @@ const Signin = () => {
 
             //Check if the response as the user
             if(response.data.user){
+                // store user information
+                localStorage.setItem("user_id", response.data.user.user_id);
                 //take us to the homepage
                 navigate("/")
             }else{

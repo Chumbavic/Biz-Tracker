@@ -30,7 +30,7 @@ const Signup = () => {
             data.append("username", username);//1st username - ifanane na ile ya insomnia (enye tulikuwa tunapea value then tunasubmit) 2nd username- the variable that stores the input from the user(enye iko kwa hook)
             data.append("email", email);
             data.append("passwrd", password);
-            data.append("user_phone", user_phone);
+            data.append("phone", user_phone);
 
             //post the data to the API
             const response = await axios.post("http://kipruto.alwaysdata.net/api/signup", data); //axios ni library that connects frontend to backend
@@ -40,7 +40,7 @@ const Signup = () => {
 
             //set the success hook to show a message
             // setSuccess("Data upload was successful")
-            setSuccess(response.data.message);
+            setSuccess(response.data.success || "Account created successfully");
 
             // clear the form input fields after data submission
             setUsername("");

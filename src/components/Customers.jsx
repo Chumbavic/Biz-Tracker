@@ -19,8 +19,8 @@ const Customers = () => {
         setLoading("Please wait...");
 
         try{
-            const response = await axios.get("")
-            setCustomers(response.data)
+            const response = await axios.get("/api/getcustomers")
+            setCustomers(response.data.customer_details || [])
             setLoading("")
         } catch (error){
             setLoading("")
@@ -37,7 +37,7 @@ const Customers = () => {
             <h1>Who's getting an offer today ?</h1>
             <div className="col-md-9">
                  {customers.map((customer) => ( //map is a function that loops though products and displays each product
-                    <div className="row justify-content-center mb-2" key={product.id}> {/*key inamake a specific column ikuwe specified to the id of the product*/}
+                    <div className="row justify-content-center mb-2" key={customer.customer_id}> {/*key inamake a specific column ikuwe specified to the id of the product*/}
                         {/* card to display the product on the page */}
                         <div className="card shadow card-margin m-2 " style={{height: '850px', border: '1px solid grey', borderRadius: '10px',background: 'rgba(242, 242, 242, 0.43)'}}>
                             <div className="card-body">

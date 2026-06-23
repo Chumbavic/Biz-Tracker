@@ -1,4 +1,10 @@
 // Manages catalog. Makes image sharing possible. Dropdown to see your own available products. 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+
+
 const Products = () => {
     //initialize the hooks
     const [products, setProducts] = useState([]) // empty array by default
@@ -17,9 +23,9 @@ const Products = () => {
         setLoading("Please wait, we are retrieving the products..");
 
         try{
-            const response = await axios.get("https://kipruto.alwaysdata.net/api/get_product_details")
+            const response = await axios.get("https://kipruto.alwaysdata.net/api/get_all_products")
 
-            setProducts(response.data)
+            setProducts(response.data.products || [])
             setLoading("")
         } catch(error){
             setLoading(" ")
@@ -34,41 +40,30 @@ const Products = () => {
     }, []);
 
     return( 
-        <div className="row" style={{
-                backgroundImage: "url('/images/background1.jpg')",
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                height: "100vh",
-                width: '100vw',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
+        <div className="container">
             <h3 className="display-4"><b>Available Products</b></h3>
-
-            {/* binding the success and the error messages */}
-            {loading  && <p className="text-dark">{loading}</p>}
+            {loading && <p>{loading}</p>}
             {error && <p className="text-danger">{error}</p>}
-            
-            {products.map((product) => ( //map is a function that loops though products and displays each product
-            <div className="row justify-content-center mb-2" key={product.id}> {/*key inamake a specific column ikuwe specified to the id of the product*/}
-                {/* card to display the product on the page */}
-                <div className="card shadow card-margin m-2 " style={{height: '850px', border: '1px solid grey', borderRadius: '10px',background: 'rgba(242, 242, 242, 0.43)'}}>
-                    <img 
-                        src={img_url + product.product_photo} 
-                        alt={product.product_name}
-                        className="product_img mt-2 p-2"
-                        style={{height: '400px', borderRadius: '15px'}}
-                    />
-                    <div className="card-body">
-                        <h5 className="mt-2" style={{color: 'black'}}>{product.product_name}</h5>
-                        <p className="text-muted">{product.product_description}</p>
-                        <p className="text-dark">Ksh {product.product_cost}</p>
+            <div className="row">
+                {products.map((product) => (
+                    <div className="col-md-3 mb-4" key={product.product_id}>
+                        <div className="card shadow h-100">
+                            <img
+                                src={img_url + product.image_url}
+                                alt={product.product_name}
+                                className="card-img-top p-2"
+                                style={{ height: '200px', objectFit: 'cover' }}
+                            />
+                            <div className="card-body">
+                                <h5>{product.product_name}</h5>
+                                <p className="text-muted">Category: {product.category || 'N/A'}</p>
+                                <p className="text-dark">Ksh {product.product_cost || 0}</p>
+                                <p>In stock: {product.remaining_units || 0}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
-            ))}
         </div>
     );
 };
